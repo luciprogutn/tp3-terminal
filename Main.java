@@ -51,59 +51,58 @@ import java.util.Optional;
             }
         }
 
-        public static void procesarArchivoVentas(String rutaArchivo, Terminal terminal) {
-            int lineasLeidas = 0;
-            int ventasExitosas = 0;
-            int rechazados = 0;
+    public static void procesarArchivoVentas(String rutaArchivo, Terminal terminal) {
+        int lineasLeidas = 0;
+        int ventasExitosas = 0;
+        int rechazados = 0;
 
-            try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-                String linea;
-                while ((linea = br.readLine()) != null) {
-                    lineasLeidas++;
-                    try {
-                        String[] partes = linea.split(";");
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))){
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                lineasLeidas++;
+                try {
+                    String[] partes = linea.split(";");
 
-                        if (partes.length != 4) {
-                            throw new VentaInvalidaException("El renglón no tiene cuatro campos.");
-                        }
-
-                        String codigoServicio = partes[0].trim();
-                        String dni = partes[1].trim();
-                        String nombre = partes[2].trim();
-                        String asientoStr = partes[3].trim();
-
-                        Servicio servicio = terminal.buscarServicio(codigoServicio);
-                        if (servicio == null) {
-                            throw new ServicioNoEncontradoException("El servicio " + codigoServicio + " no existe.");
-                        }
-
-                        if (!esAsientoValido(asientoStr)) {
-                            throw new VentaInvalidaException("El asiento '" + asientoStr + "' no es un número ni *.");
-                        }
-
-                        Pasajero pasajero = new Pasajero(dni, nombre);
-                        terminal.venderPasaje(codigoServicio, pasajero, asientoStr);
-
-                        ventasExitosas++;
-
-                    } catch (ServicioNoEncontradoException | VentaInvalidaException e) {
-                        rechazados++;
-                        System.out.println("Rennglón " + lineasLeidas + " rechazado: " + e.getMessage());
-                    } catch (NumberFormatException e) {
-                        rechazados++;
-                        System.out.println("Renglón " + lineasLeidas + " rechazado: Formato de número inválido.");
+                    if (partes.length != 4) {
+                        throw new VentaInvalidaException("El renglón no tiene cuatro campos.");
                     }
+
+                    String codigoServicio = partes[0].trim();
+                    String dni = partes[1].trim();
+                    String nombre = partes[2].trim();
+                    String asientoStr = partes[3].trim();
+
+                    Servicio servicio = terminal.buscarServicio(codigoServicio);
+                    if (servicio == null) {
+                        throw new ServicioNoEncontradoException("El servicio " + codigoServicio + " no existe.");
+                    }
+
+                    if (!esAsientoValido(asientoStr)) {
+                        throw new VentaInvalidaException("El asiento '" + asientoStr + "' no es un número ni *.");
+                    }
+
+                    Pasajero pasajero = new Pasajero(dni, nombre);
+                    terminal.venderPasaje(codigoServicio, pasajero, asientoStr);
+                    ventasExitosas++;
+
+                } catch (ServicioNoEncontradoException | VentaInvalidaException e) {
+                    rechazados++;
+                    System.out.println("Rennglón " + lineasLeidas + " rechazado: " + e.getMessage());
+                } catch (NumberFormatException e) {
+                    rechazados++;
+                    System.out.println("Renglón " + lineasLeidas + " rechazado: Formato de número inválido.");
                 }
-
-                System.out.println("--- Resumen de Procesamiento ---");
-                System.out.println("Renglones leídos: " + lineasLeidas);
-                System.out.println("Ventas realizadas: " + ventasExitosas);
-                System.out.println("Renglones rechazados: " + rechazados);
-
-            } catch (IOException e) {
-                System.out.println("El archivo " + rutaArchivo + " no pudo ser encontrado.");
             }
+
+            System.out.println("--- Resumen de Procesamiento ---");
+            System.out.println("Renglones leídos: " + lineasLeidas);
+            System.out.println("Ventas realizadas: " + ventasExitosas);
+            System.out.println("Renglones rechazados: " + rechazados);
+
+        } catch (IOException e) {
+            System.out.println("El archivo " + rutaArchivo + " no pudo ser encontrado.");
         }
+    }
 
         private static boolean esAsientoValido(String asiento) {
             if (asiento.equals("*")) {
