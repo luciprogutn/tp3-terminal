@@ -32,17 +32,16 @@ public class Servicio {
             asientosDisponibles--;
             System.out.println("¡Pasaje vendido con éxito!");
         } else {
-            listaEspera.agregar(pasajero); // <--- Llamada directa sin asignar a booleano
+            listaEspera.agregar(pasajero);
             System.out.println("Colectivo lleno. Pasajero agregado a la lista de espera.");
         }
     }
 
-    // Devolución de pasaje por número de asiento (Parte B.4)
     public void devolverPasaje(int numeroAsiento) {
         asientosDisponibles++;
         if (!listaEspera.estaVacia()) {
             Pasajero siguiente = listaEspera.atenderSiguiente();
-            asientosDisponibles--; // Ocupa el lugar liberado
+            asientosDisponibles--;
             System.out.println("Se desocupó el asiento " + numeroAsiento + ". Subió desde la lista de espera: " + siguiente);
         } else {
             System.out.println("El asiento " + numeroAsiento + " quedó libre.");

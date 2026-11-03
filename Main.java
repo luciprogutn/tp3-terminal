@@ -19,10 +19,9 @@ import java.util.Optional;
             try {
                 procesarArchivoVentas("archivo_falso.txt", terminal);
             } catch (Exception e) {
-                // Atrapado limpiamente
             }
 
-            // --- 1. Devolución de pasaje de Bruno Ortiz (Asiento 2 del NEC-MDP-0700) ---
+
             System.out.println("\n=== DEVOLUCIÓN DE PASAJE ===");
             try {
                 Servicio servicioMdp = terminal.obtenerServicio("NEC-MDP-0700");
@@ -34,11 +33,9 @@ import java.util.Optional;
                 System.out.println("Error al devolver el pasaje: " + e.getMessage());
             }
 
-            // --- 2. Informes de la Terminal ---
             System.out.println("\n=== INFORMES DE LA TERMINAL ===");
             terminal.imprimirInformes();
 
-            // --- 3. Búsquedas de prueba ---
             System.out.println("\n=== BÚSQUEDAS DE PRUEBA ===");
 
             Optional<Pasaje> pasajeAna = terminal.buscarPasaje("NEC-TRA-1400", "30111222");
