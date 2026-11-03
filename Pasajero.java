@@ -1,19 +1,9 @@
-import java.util.Objects;
-
 public class Pasajero {
-    private String nombre;
     private String dni;
+    private String nombre;
 
-    public Pasajero(String nombre, String dni) {
-        this.nombre = nombre;
+    public Pasajero(String dni, String nombre) {
         this.dni = dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -25,16 +15,19 @@ public class Pasajero {
         this.dni = dni;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pasajero pasajero = (Pasajero) o;
-        return Objects.equals(dni, pasajero.dni);
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(dni);
+    public String toString() {
+        return "Pasajero{" +
+                "dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\''+
+                '}';
     }
 }
