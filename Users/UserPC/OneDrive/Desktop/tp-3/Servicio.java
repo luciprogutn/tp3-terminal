@@ -55,3 +55,14 @@ public void venderPasaje(String pasajero) {
         System.out.println("Colectivo lleno. Pasajero agregado a la lista de espera.");
     }
 }
+public void devolverPasaje() {
+    asientosDisponibles++;
+
+    if (!listaEspera.estaVacia()) {
+        String siguientePasajero = listaEspera.atenderSiguiente();
+        asientosDisponibles--; // Ocupa el lugar que se acaba de liberar
+        System.out.println("Se desocupó un lugar. Subió desde la lista de espera a: " + siguientePasajero);
+    } else {
+        System.out.println("Pasaje devuelto. El asiento quedó libre.");
+    }
+}
