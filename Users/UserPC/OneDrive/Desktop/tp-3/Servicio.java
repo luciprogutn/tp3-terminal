@@ -23,8 +23,6 @@ public class Servicio {
         this.listaEspera = new ListaDeEspera<>();
     }
 
-}
-
 public String getID() {
     return ID;
 }
@@ -64,5 +62,6 @@ public void devolverPasaje() {
         System.out.println("Se desocupó un lugar. Subió desde la lista de espera a: " + siguientePasajero);
     } else {
         System.out.println("Pasaje devuelto. El asiento quedó libre.");
+        }
     }
 }
