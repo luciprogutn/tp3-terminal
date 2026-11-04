@@ -30,15 +30,24 @@ public class Terminal {
         }
     }
 
-    public void imprimirInformePasajeros() {
+   /* public void imprimirInformePasajeros() {
         System.out.println("--- Informe de Pasajeros por Servicio ---");
         for (Servicio s : servicios.values()) {
             System.out.println("\nServicio: " + s.getID() + " (" + s.getDestino() + ")");
             System.out.println("Pasajeros con asiento:");
-            // Si no tenías getPasajesVendidos en Servicio, evitamos el error comentando o simplificando esta parte:
-            // s.getPasajesVendidos() ...
-        }
-    }
+
+    }*/
+   public void imprimirInformePasajeros() {
+       System.out.println("--- Informe de Pasajeros por Servicio ---");
+       for (Servicio s : servicios.values()) {
+           System.out.println("Servicio: " + s.getID() + " (" + s.getDestino() + ")");
+           System.out.println("Pasajeros con asiento:");
+
+           for (Map.Entry<Integer, Pasaje> entry : s.getPasajesVendidos().entrySet()) {
+               System.out.println("  Asiento " + entry.getKey() + ": " + entry.getValue().getPasajero().getNombre());
+           }
+       }
+   }
 
     public void imprimirInformeRecaudacion() {
         System.out.println("\n--- Informe de Recaudación por Empresa ---");
