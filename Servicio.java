@@ -1,3 +1,7 @@
+import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+
 public class Servicio {
     private String ID;
     private String empresa;
@@ -8,6 +12,7 @@ public class Servicio {
     private int asientosDisponibles;
 
     private ListaDeEspera<Pasajero> listaEspera;
+    private Map<Integer, Pasaje> pasajesVendidos = new HashMap<>();
 
     public Servicio(String ID, String empresa, String destino, String horario, int cantAsientos, double precio) {
         this.ID = ID;
@@ -36,15 +41,26 @@ public class Servicio {
             System.out.println("Colectivo lleno. Pasajero agregado a la lista de espera.");
         }
     }
+    public Optional<Pasaje> buscarPasajePorDni(String dni) {
+        for (Pasaje pasaje : pasajesVendidos.values()) {
+            if (pasaje.getPasajero().getDni().equals(dni)) {
+                return Optional.of(pasaje);
+            }
+        }
+        return Optional.empty();
+    }
 
-    public void devolverPasaje(int numeroAsiento) {
+    public Pasajero devolverPasaje(int numeroAsiento) {
         asientosDisponibles++;
         if (!listaEspera.estaVacia()) {
+            Pasajero pasajeroDevuelto = pasajesVendidos.remove(numeroAsiento);
             Pasajero siguiente = listaEspera.atenderSiguiente();
             asientosDisponibles--;
             System.out.println("Se desocupó el asiento " + numeroAsiento + ". Subió desde la lista de espera: " + siguiente);
         } else {
             System.out.println("El asiento " + numeroAsiento + " quedó libre.");
+
         }
+        return pasajeroDevuelto;
     }
 }

@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
 
-    public class Main {
+    public class Main{
         public static void main(String[] args) {
             Terminal terminal = new Terminal();
 
@@ -35,6 +35,9 @@ import java.util.Optional;
 
             System.out.println("\n=== INFORMES DE LA TERMINAL ===");
             terminal.imprimirInformes();
+            System.out.println("\n=== INFORMES DE LA TERMINAL ===");
+            terminal.imprimirInformePasajeros();
+            terminal.imprimirInformeRecaudacion();
 
             System.out.println("\n=== BÚSQUEDAS DE PRUEBA ===");
 
@@ -49,10 +52,22 @@ import java.util.Optional;
             if (pasajeInexistente.isEmpty()) {
                 System.out.println("Búsqueda con DNI inexistente resuelta correctamente (Optional vacío).");
             }
-        }
 
-    public static void procesarArchivoVentas(String rutaArchivo, Terminal terminal) {
-        int lineasLeidas = 0;
+            System.out.println("=== DEVOLUCIÓN DE PASAJE ===");
+            Servicio servicioMdp = terminal.obtenerServicio("NEC-MDP-0700");
+            Pasajero subio = servicioMdp.devolverPasaje(2);
+
+            if (subio != null) {
+                System.out.println("Bruno Ortiz devolvió su pasaje del NEC-MDP-0700.");
+                System.out.println("¡Aviso! El pasajero " + subio.getNombre() + " " + subio.getNombre() +
+                        " subió de la lista de espera y ocupó el asiento 2.");
+            } else {
+                System.out.println("El asiento 2 quedó libre y no había nadie en lista de espera.");
+            }
+}
+
+        public static void procesarArchivoVentas(String rutaArchivo, Terminal terminal) {
+         int lineasLeidas = 0;
         int ventasExitosas = 0;
         int rechazados = 0;
 
@@ -111,8 +126,8 @@ import java.util.Optional;
             try {
                 Integer.parseInt(asiento);
                 return true;
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e){
                 return false;
             }
         }
-    }
+}
