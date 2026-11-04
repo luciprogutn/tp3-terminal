@@ -22,6 +22,18 @@ public class Pasajero {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pasajero pasajero = (Pasajero) o;
+        return dni.equals(pasajero.dni);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(dni);
+    }
 
     @Override
     public String toString() {

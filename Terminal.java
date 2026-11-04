@@ -49,3 +49,5 @@ public class Terminal {
         System.out.println("--- Informe de Recaudación por Empresa ---");
     }
 }
+
+
